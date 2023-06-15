@@ -1,98 +1,170 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
 
-    label {
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    input[type="submit"] {
-      margin-top: 10px;
-    }
-
-    #input-container {
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    #input-container > div {
-      flex: 1 1 50%;
-      padding: 0 10px;
-    }
-
-    #result {
-      margin-top: 20px;
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
-  <h1>Dog Breeding</h1>
-
-  <div id="input-container">
-    <div>
-      <h2>Male Dog</h2>
-      <label for="male-allele1">Allele 1:</label>
-      <select id="male-allele1">
-        <option value="A">A</option>
-        <option value="az">az</option>
-      </select>
-    </div>
-
-    <div>
-      <h2>Female Dog</h2>
-      <label for="female-allele1">Allele 1:</label>
-      <select id="female-allele1">
-        <option value="B">B</option>
-        <option value="b">b</option>
-        <option value="bt">bt</option>
-      </select>
-    </div>
-  </div>
-
-  <input type="submit" value="Calculate" onclick="calculateOffspringGenotypes()">
-
-  <div id="result"></div>
-
-  <script>
-    function calculateOffspringGenotypes() {
-      var maleAllele1 = document.getElementById("male-allele1").value;
-      var femaleAllele1 = document.getElementById("female-allele1").value;
-
-      var offspringGenotypes = [];
-      var offspringProbabilities = [];
-
-      // Possible offspring genotypes
-      var genotypes = [
-        maleAllele1 + femaleAllele1,
-        maleAllele1 + "b",
-        maleAllele1 + "bt",
-        "az" + femaleAllele1,
-        "azb",
-        "azbt",
-        maleAllele1 + "B",
-        "az" + "B"
-      ];
-
-      // Calculate probability for each genotype
-      var probability = 1 / genotypes.length;
-      for (var i = 0; i < genotypes.length; i++) {
-        offspringGenotypes.push(genotypes[i]);
-        offspringProbabilities.push(probability);
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
       }
 
-      var resultElement = document.getElementById("result");
-      resultElement.innerHTML = "<h3>Possible Offspring Genotypes:</h3>";
-      
-      for (var j = 0; j < offspringGenotypes.length; j++) {
-        resultElement.innerHTML += offspringGenotypes[j] + " (Probability: " + offspringProbabilities[j].toFixed(2) + ")<br>";
+      label {
+        display: block;
+        margin-bottom: 5px;
       }
-    }
-  </script>
-</body>
+
+      input[type="submit"] {
+        margin-top: 10px;
+      }
+
+      .outer-container {
+        display: flex;
+        background-color: lightgray;
+      }
+
+      .outer-container>div {
+        flex: 1 1 50%;
+        margin: 10px;
+      }
+
+      .inner-container {}
+
+      .genebox {
+        text-align:left;
+      }
+
+      .genebox-select, .genebox-preview {
+        width: fit-content;
+        display: inline-block;
+      }
+
+      .dog-img {
+        min-width: 20px;
+        min-height: 20px;
+      }
+
+      #result {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <h1>Dog Genotype Calculator</h1>
+    <div class="outer-container">
+      <div class="inner-container" id="left-container">
+        <h2>Dog 1</h2>
+        <div>
+          <img class=dog-img src="https://i.imgur.com/bFu5Ds5.png">
+        </div>
+
+        <div class="genebox">
+          <div class="genebox-select">
+            <label for="dog1-geneA">A Locus</label>
+            <select id="dog1-geneA1">
+              <option value="Ay">Ay</option>
+              <option value="Ays">Ays</option>
+              <option value="aws">aws</option>
+              <option value="aw">aw</option>
+              <option value="asa">asa</option>
+              <option value="at">at</option>
+              <option value="a">a</option>
+            </select>
+            <select id="dog1-geneA2">
+              <option value="Ay">Ay</option>
+              <option value="Ays">Ays</option>
+              <option value="aws">aws</option>
+              <option value="aw">aw</option>
+              <option value="asa">asa</option>
+              <option value="at">at</option>
+              <option value="a">a</option>
+            </select>
+          </div>
+          <div class="genebox-preview">
+          aaa
+          </div>
+
+        </div>
+
+
+      </div>
+
+      <div class="inner-container" id="right-container">
+        <h2>Dog 2</h2>
+        <div>
+          <img class=dog-img src="https://i.imgur.com/bFu5Ds5.png">
+        </div>
+
+        <div class="genebox">
+          <div class="genebox-select">
+            <label for="dog2-geneA">A Locus</label>
+            <select id="dog2-geneA1">
+              <option value="Ay">Ay</option>
+              <option value="Ays">Ays</option>
+              <option value="aws">aws</option>
+              <option value="aw">aw</option>
+              <option value="asa">asa</option>
+              <option value="at">at</option>
+              <option value="a">a</option>
+            </select>
+            <select id="dog2-geneA2">
+              <option value="Ay">Ay</option>
+              <option value="Ays">Ays</option>
+              <option value="aws">aws</option>
+              <option value="aw">aw</option>
+              <option value="asa">asa</option>
+              <option value="at">at</option>
+              <option value="a">a</option>
+            </select>
+          </div>
+          <div class="genebox-preview">
+          aaa
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <input type="submit" value="Calculate" onclick="calculateOffspringGenotypes()">
+
+    <div id="result"></div>
+
+    <script>
+      function calculateOffspringGenotypes() {
+        var dog1geneA1 = document.getElementById("dog1-geneA1").value;
+        var dog1geneA2 = document.getElementById("dog1-geneA2").value;
+        var dog2geneA1 = document.getElementById("dog2-geneA1").value;
+        var dog2geneA2 = document.getElementById("dog2-geneA2").value;
+
+        var offspringGenotypes = [];
+        var offspringProbabilities = [];
+
+        // Possible offspring genotypes
+        var genotypes = [
+          dog1geneA1 + dog2geneA1,
+          dog1geneA1 + dog2geneA2,
+          dog1geneA2 + dog2geneA1,
+          dog1geneA2 + dog2geneA2
+        ];
+
+        // Calculate probability for each genotype
+        var probability = 1 / genotypes.length;
+        for (var i = 0; i < genotypes.length; i++) {
+          offspringGenotypes.push(genotypes[i]);
+          offspringProbabilities.push(probability);
+        }
+
+        var resultElement = document.getElementById("result");
+        resultElement.innerHTML = "<h3>Possible Offspring Genotypes:</h3>";
+
+        for (var j = 0; j < offspringGenotypes.length; j++) {
+          resultElement.innerHTML += offspringGenotypes[j] + " (Probability: " + offspringProbabilities[j].toFixed(2) + ")<br>";
+        }
+      }
+
+    </script>
+  </body>
+
 </html>
