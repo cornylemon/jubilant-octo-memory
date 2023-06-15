@@ -11,6 +11,7 @@
       label {
         display: block;
         margin-bottom: 5px;
+        margin-top: 15px;
       }
 
       input[type="submit"] {
@@ -30,10 +31,11 @@
       .inner-container {}
 
       .genebox {
-        text-align:left;
+        text-align: left;
       }
 
-      .genebox-select, .genebox-preview {
+      .genebox-select,
+      .genebox-preview {
         width: fit-content;
         display: inline-block;
       }
@@ -60,10 +62,10 @@
           <img class=dog-img src="https://i.imgur.com/bFu5Ds5.png">
         </div>
 
-        <div class="genebox">
+        <div class="genebox" id="genebox1A">
           <div class="genebox-select">
             <label for="dog1-geneA">A Locus</label>
-            <select id="dog1-geneA1">
+            <select id="dog1-geneA1" onchange="updatePhenotype('dog1','A')">
               <option value="Ay">Ay</option>
               <option value="Ays">Ays</option>
               <option value="aws">aws</option>
@@ -72,7 +74,7 @@
               <option value="at">at</option>
               <option value="a">a</option>
             </select>
-            <select id="dog1-geneA2">
+            <select id="dog1-geneA2" onchange="updatePhenotype('dog1','A')">
               <option value="Ay">Ay</option>
               <option value="Ays">Ays</option>
               <option value="aws">aws</option>
@@ -83,7 +85,43 @@
             </select>
           </div>
           <div class="genebox-preview">
-          aaa
+            <a id="dog1-geneAPheno">clear sable</a>
+          </div>
+
+        </div>
+
+        <div class="genebox" id="genebox1B">
+          <div class="genebox-select">
+            <label for="dog1-geneB">B Locus</label>
+            <select id="dog1-geneB1" onchange="updatePhenotype('dog1','B')">
+              <option value="B1">B</option>
+              <option value="b">b</option>
+            </select>
+            <select id="dog1-geneB2" onchange="updatePhenotype('dog1','B')">
+              <option value="B1">B</option>
+              <option value="b">b</option>
+            </select>
+          </div>
+          <div class="genebox-preview">
+            <a id="dog1-geneBPheno">black</a>
+          </div>
+
+        </div>
+
+        <div class="genebox" id="genebox1D">
+          <div class="genebox-select">
+            <label for="dog1-geneD">D Locus</label>
+            <select id="dog1-geneD1" onchange="updatePhenotype('dog1','D')">
+              <option value="D1">D</option>
+              <option value="d">d</option>
+            </select>
+            <select id="dog1-geneD2" onchange="updatePhenotype('dog1','D')">
+              <option value="D1">D</option>
+              <option value="d">d</option>
+            </select>
+          </div>
+          <div class="genebox-preview">
+            <a id="dog1-geneDPheno">no dilution</a>
           </div>
 
         </div>
@@ -97,10 +135,10 @@
           <img class=dog-img src="https://i.imgur.com/bFu5Ds5.png">
         </div>
 
-        <div class="genebox">
+        <div class="genebox" id="genebox2A">
           <div class="genebox-select">
             <label for="dog2-geneA">A Locus</label>
-            <select id="dog2-geneA1">
+            <select id="dog2-geneA1" onchange="updatePhenotype('dog2','A')">
               <option value="Ay">Ay</option>
               <option value="Ays">Ays</option>
               <option value="aws">aws</option>
@@ -109,7 +147,7 @@
               <option value="at">at</option>
               <option value="a">a</option>
             </select>
-            <select id="dog2-geneA2">
+            <select id="dog2-geneA2" onchange="updatePhenotype('dog2','A')">
               <option value="Ay">Ay</option>
               <option value="Ays">Ays</option>
               <option value="aws">aws</option>
@@ -120,7 +158,7 @@
             </select>
           </div>
           <div class="genebox-preview">
-          aaa
+            <a id="dog2-geneAPheno">clear sable</a>
           </div>
 
         </div>
@@ -162,6 +200,47 @@
         for (var j = 0; j < offspringGenotypes.length; j++) {
           resultElement.innerHTML += offspringGenotypes[j] + " (Probability: " + offspringProbabilities[j].toFixed(2) + ")<br>";
         }
+      }
+
+      function updatePhenotype(dog, gene) {
+
+        var allele1 = document.getElementById(dog + "-gene" + gene + "1").value;
+        var allele2 = document.getElementById(dog + "-gene" + gene + "2").value;
+        var phenotypeElement = document.getElementById(dog + "-gene" + gene + "Pheno");
+        var phenotype = "";
+
+        if (gene == "A") {
+          if (allele1 == "Ay" || allele2 == "Ay") {
+            phenotype = "clear sable";
+          } else if (allele1 == "Ays" || allele2 == "Ays") {
+            phenotype = "shaded sable";
+          } else if (allele1 == "aws" || allele2 == "aws") {
+            phenotype = "saddle agouti";
+          } else if (allele1 == "aw" || allele2 == "aw") {
+            phenotype = "agouti";
+          } else if (allele1 == "asa" || allele2 == "asa") {
+            phenotype = "saddleback";
+          } else if (allele1 == "at" || allele2 == "at") {
+            phenotype = "tanpoint";
+          } else if (allele1 == "a" || allele2 == "a") {
+            phenotype = "recessive black";
+          }
+        } else if (gene == "B") {
+          if (allele1 == "B1" || allele2 == "B1") {
+            phenotype = "black";
+          } else {
+            phenotype = "liver";
+          }
+        } else if (gene == "D") {
+          if (allele1 == "D1" || allele2 == "D1") {
+            phenotype = "no dilution";
+          } else {
+            phenotype = "dilution";
+          }
+        }
+      
+
+      phenotypeElement.innerText = phenotype;
       }
 
     </script>
